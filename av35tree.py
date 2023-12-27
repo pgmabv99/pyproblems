@@ -6,7 +6,7 @@ class node:
         self.v=v
         self.chld=[]
         self.rp=[]
-        self.rpres=[]
+        self.trunk=[]
         pass
 
 
@@ -50,9 +50,9 @@ def walk(node, par, root):
         print_rp(par.rp)
         print("node rp")
         print_rp(node.rp)
-        root.rpres=inter_rp(root.rpres,node.rp)
-        print("trunc")
-        print_rp(root.rpres)
+        root.trunk=inter_rp(root.trunk,node.rp)
+        print("trunk")
+        print_rp(root.trunk)
 
     for c in node.chld:
         walk(c, node, root)
