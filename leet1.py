@@ -1,6 +1,30 @@
 # 2870. Minimum Number of Operations to Make Array Empty
 from typing import List
 class Solution:
+
+    def minOperations2(self, nums: List[int]) -> int:
+        d={}
+        for n in nums:
+            if n not in d:
+                d[n]=1
+            else:
+                d[n]+=1
+        print("dict", d)
+
+        nops=0
+        for v  in d.values():
+            if v%3 == 0:
+                nops+=v//3
+            elif v%2 ==0:
+                nops+=v//2
+            else:
+                return -1
+
+        return nops
+
+
+
+
     def minOperations(self, nums: List[int]) -> int:
         nums2 = self.mysort(nums)
         print("nums2", nums2)
@@ -69,6 +93,9 @@ class Solution:
 
 s=Solution()
 
-print(s.minOperations([2,3,3,2,2,4,2,3,4]))
-print(s.minOperations([2,3,3,2,2,4,2,3,5,4]))
-print(s.minOperations([2,3,2,3,2,2,4,2,3,5,4]))
+print(s.minOperations2([2,3,3,2,2,4,2,3,4]))
+print(s.minOperations2([2,3,3,2,2,4,2,3,5,4]))
+print(s.minOperations2([2,3,2,3,2,2,4,2,3,5,4]))
+# print(s.minOperations([2,3,3,2,2,4,2,3,4]))
+# print(s.minOperations([2,3,3,2,2,4,2,3,5,4]))
+# print(s.minOperations([2,3,2,3,2,2,4,2,3,5,4]))
