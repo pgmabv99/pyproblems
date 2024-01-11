@@ -58,7 +58,27 @@ def walk(node, par, root):
         walk(c, node, root)
 
 
+def walk_stk(root):
+    stk=[]
+    stk.append(root)
+    while len(stk)>0:
+        cur=stk.pop()
+        print(f" current  from main stack  { cur.v} rp {cur.rp}")
 
 
+        ich=0
+        for ch in cur.chld:
+            ch.rp=cur.rp[:]
+            ch.rp.append(cur.v)
+            stk.append(ch)
+            ich+=1
+        if len(cur.chld)==0:
+            #leaf node . intersect rp
+            root.trunk=inter_rp(root.trunk,cur.rp)
+    return
 
-walk(root, None, root)
+
+# walk(root, None, root)
+
+walk_stk(root)
+print(f" trunk {root.trunk}")
