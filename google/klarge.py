@@ -15,6 +15,11 @@ class test:
             #truncate if needed
             if len(self.lst)> self.k:
                 self.lst=self.lst[-self.k:]
+        elif n < self.lst[0]:
+            self.lst.insert(0,n)
+            #truncate if needed
+            if len(self.lst)> self.k:
+                self.lst=self.lst[:self.k]
         else:
             # insert into rigth slot of already sorted .reject duplicates
             for i in range(len(self.lst)-1):
