@@ -60,9 +60,11 @@ def walk(node, par, root):
 
 def walk_stk(root):
     stk=[]
+    rstk=[]
     stk.append(root)
     while len(stk)>0:
         cur=stk.pop()
+        rstk.append(cur)
         print(f" current  from main stack  { cur.v} rp {cur.rp}")
 
 
@@ -75,6 +77,10 @@ def walk_stk(root):
         if len(cur.chld)==0:
             #leaf node . intersect rp
             root.trunk=inter_rp(root.trunk,cur.rp)
+
+    print("reverse" , [ n.v for n in reversed(rstk)])
+    print("original" , [ n.v for n in rstk])
+    # print("reverse" , [ n.v for n in rstk[::-1]])
     return
 
 
