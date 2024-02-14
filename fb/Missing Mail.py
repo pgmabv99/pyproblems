@@ -40,5 +40,5 @@ def getMaxExpectedProfit(N: int, V: List[int], C: int, S: float) -> float:
 
     return t_amt
 
-# getMaxExpectedProfit(5, [10, 2, 8, 6, 4], 3, 0.5 )
-getMaxExpectedProfit(5, [10, 2, 8, 6, 4], 3, 0.15 )
+getMaxExpectedProfit(5, [10, 2, 8, 6, 4], 3, 0.5 )
+# getMaxExpectedProfit(5, [10, 2, 8, 6, 4], 3, 0.15 )
