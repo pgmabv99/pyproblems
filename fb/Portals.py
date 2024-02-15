@@ -1,4 +1,5 @@
 from typing import List
+import copy
 # Write any import statements here
 
 
@@ -7,9 +8,13 @@ def getSecondsRequired(R: int, C: int, G: List[List[str]]) -> int:
     t.find_start()
     # print("start", t.i0, t.j0)
     t.bldPort()
-    t.step(t.i0,t.j0)
-    # print("endList" , t.endList)
+    # t.step(t.i0,t.j0)
+    t.stack()
 
+    # print("endList" , t.endList)
+    # for _,_,_,path in t.endList:
+    #     print("path", path.keys())
+    # print(G)
     print ("ret", t.minsec)
     return t.minsec
 
@@ -60,7 +65,7 @@ class test:
         chr= self.G[i][j]
         if chr=="E":
             # print("end ", i, j, "sec", self.sec)
-            self.endList.append((i,j))
+            self.endList.append((i,j,self.sec))
             if self.minsec == -1:
                 self.minsec= self.sec
             else:
@@ -96,6 +101,75 @@ class test:
         self.sec-=1
         return
 
+    def append22(self,stk, i, j):
+
+        stk.append((i,j,copy.deepcopy(self.path),self.sec))
+        return
+
+    def pop22(self,stk):
+        i,j, tmp, self.sec=stk.pop()
+        self.path=copy.deepcopy(tmp)
+        return i, j
+
+    def prt_stk(self,stk):
+        print("==== stack")
+        if len(stk):
+            for _,j,path,_ in stk:
+                print("j",j)
+                print("path", end=" ")
+                for _,jx in path.keys():
+                    print(jx,end=" ")
+                print(end="\n")
+        else:
+            print("empty")
+        return
+
+    def stack(self ):
+
+        stk=[]
+        self.append22(stk,self.i0,self.j0)
+        while len(stk)> 0:
+            # self.prt_stk(stk)
+            i,j =self.pop22(stk)
+            # print("step into",  j)
+            chr22= self.G[i][j]
+            if chr22=="E":
+                # print("end i j ", i , j)
+                self.endList.append((i,j,self.sec,copy.deepcopy(self.path)))
+                if self.minsec == -1:
+                    self.minsec= self.sec
+                else:
+                    self.minsec=min(self.minsec, self.sec)
+
+                continue
+            if chr22 =="#":
+                # print("wall ", i, j)
+                continue
+            if (i,j) in self.path:
+                # print(" in path")
+                continue
+
+
+            self.path[(i,j)]=1
+            self.sec+=1
+
+            if i>0 :
+                self.append22(stk,i-1,j)
+            if i<self.R-1:
+                self.append22(stk,i+1,j)
+            if j>0 :
+                self.append22(stk,i,j-1)
+            if j<self.C-1:
+                self.append22(stk,i,j+1)
+
+            if chr22 in self.portMap:
+                xlist=self.portMap[chr22]
+                for xi,xj in xlist:
+                    if (xi,xj) not in self.path:
+                        self.append22(stk,xi,xj)
+
+        return
+
 
 G1=[ [".","E","."]
    ,[".","#","E"]
@@ -119,3 +193,8 @@ G4=[ ["x","S",".",".","x",".",".","E","x"]
   ]
 
 getSecondsRequired(1,9,G4)
+
+# G5=[ ["x","S","E","x"]
+#   ]
+
+# getSecondsRequired(1,4,G5)
