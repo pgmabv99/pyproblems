@@ -8,8 +8,8 @@ def getSecondsRequired(R: int, C: int, G: List[List[str]]) -> int:
     t.find_start()
     # print("start", t.i0, t.j0)
     t.bldPort()
-    # t.step(t.i0,t.j0)
-    t.stack()
+    t.step(t.i0,t.j0)
+    # t.stack()
 
     # print("endList" , t.endList)
     # for _,_,_,path in t.endList:
@@ -94,7 +94,8 @@ class test:
         if chr in self.portMap:
             xlist=self.portMap[chr]
             for xi,xj in xlist:
-                self.step(xi,xj)
+                if (xi,xj) not in self.path and self.G[xi][j]!="#":
+                    self.step(xi,xj)
             pass
 
         self.path.pop((i,j))
@@ -165,7 +166,7 @@ class test:
             if chr22 in self.portMap:
                 xlist=self.portMap[chr22]
                 for xi,xj in xlist:
-                    if (xi,xj) not in self.path:
+                    if (xi,xj) not in self.path and self.G[xi][j]!="#":
                         self.append22(stk,xi,xj)
 
         return
