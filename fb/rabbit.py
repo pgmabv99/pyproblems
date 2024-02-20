@@ -4,12 +4,11 @@ from typing import List
 def getMaxVisitableWebpages(N: int, L: List[int]) -> int:
     # Write your code here
     t=test(N,L)
-    # print(t.find_end(2))
-    # print(t.find_end1(3))
+    t.loopBld11()
     # t.loopBld()
     # t.loopPrt()
-    t.loopBldMap()
-    t.loopPrtMap()
+    # t.loopBldMap()
+    # t.loopPrtMap()
     print("ret maxl ", t.maxl)
     return t.maxl
 
@@ -25,7 +24,6 @@ class test:
     def loopBld(self):
         self.loopCol=[]
         self.maxl=0
-        self.visited=[0]*(self.N+1)
         for i  in range(1,self.N+1):
             if self.loopCheck(i):
                 continue
@@ -40,6 +38,31 @@ class test:
                 self.loopCol[-1].append(node)
             self.maxl=max(len(self.loopCol[-1]),self.maxl)
             # self.loopPrt()
+        pass
+
+    def loopBld11(self):
+        self.maxl=0
+        self.visited=[0]*(self.N+1)
+        for i  in range(1,self.N+1):
+            if self.visited[i]==1:
+                continue
+            self.loop=[]
+            self.loop.append(i)
+            loopLen=1
+            self.visited[i]=1
+            node=self.L[i-1]
+            self.loop.append(node)
+            loopLen+=1
+            self.visited[node]=1
+            while True:
+                node=self.L[node-1]
+                if node in self.loop:
+                    break
+                self.loop.append(node)
+                self.visited[node]=1
+                loopLen+=1
+            self.maxl=max(loopLen,self.maxl)
+            print("i base1", i,  "loop", self.loop)
         pass
 
     def loopBldMap(self):
@@ -63,13 +86,13 @@ class test:
 
     def loopPrt(self):
 
-        for i  in range(1,len(self.loopLst)+1):
+        for i  in range(1,len(self.loopCol)+1):
 
-            last =self.loopLst[i-1][-1]
+            last =self.loopCol[i-1][-1]
             loopback =self.L[last-1]
-            print("i base1", i,  "loop", self.loopLst[i-1], "last", last, "loopback", loopback)
+            print("i base1", i,  "loop", self.loopCol[i-1], "last", last, "loopback", loopback)
 
-            # for node in self.loopLst[i-1]:
+            # for node in self.loopCol[i-1]:
             #     print( "index", node, "value", self.L[node-1])
         return
 
