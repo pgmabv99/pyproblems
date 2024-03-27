@@ -49,11 +49,12 @@ class test:
             self.loop=[]
             self.loop.append(i)
             loopLen=1
-            self.visited[i]=1
-            node=self.L[i-1]
-            self.loop.append(node)
-            loopLen+=1
-            self.visited[node]=1
+            # self.visited[i]=1
+            # node=self.L[i-1]
+            # self.loop.append(node)
+            # loopLen+=1
+            # self.visited[node]=1
+            node=i
             while True:
                 node=self.L[node-1]
                 if node in self.loop:
