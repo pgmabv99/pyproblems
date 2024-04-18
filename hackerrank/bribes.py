@@ -13,5 +13,8 @@ def minimum_bribes(q):
 
 # Example usage:
 # queue = [2, 1, 5, 3, 4]  # Example queue order
-queue = [2, 3, 5, 4 , 1]  # Example queue order
+# queue = [2, 3, 5, 4 , 1]  # Example queue order
+#        1,2,3,4,5
+
+queue = [2,5,1,3,4]  # Example queue order
 minimum_bribes(queue)
