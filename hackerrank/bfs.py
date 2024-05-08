@@ -1,3 +1,5 @@
+#graph scan for shortest distance
+#recursion
 def bfs(n,edges, start):
     # Write your code here
     print(n,edges,start)
@@ -30,7 +32,7 @@ def bfs(n,edges, start):
 
     return dist
 
-
+#  with stack of paths
 def bfs_stk(n, edges,start):
     dist_list=[-1]*(n)
     path=[]
@@ -72,6 +74,8 @@ def bfs_stk(n, edges,start):
 
     return dist_list
 # --
+
+# without stack of path. TODO
 def bfs_stk2(n, edges,start):
     dist_list=[-1]*(n)
     path_list=[[]]*n
@@ -102,6 +106,7 @@ def bfs_stk2(n, edges,start):
                 next=edge[1]
             if edge[1] ==  x :
                 next=edge[0]
+            # todo avoid loops ???
             # if edge[0] ==  x and edge[1] not in path:
             #     next=edge[1]
             # if edge[1] ==  x and edge[0] not in path:
