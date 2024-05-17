@@ -66,7 +66,7 @@ class heap:
                 res = True
         return res
 
-    
+
 
     def flip_up(self, cur):
         print(" flip up", cur, self.hp[cur])
@@ -156,27 +156,193 @@ class heap:
         self.print2(lc, off+heap.EXTRA)
         self.print2(rc, off+heap.EXTRA)
 
+class node:
+    def __init__(self, k,v) -> None:
+        self.k=k
+        self.v=v
+        self.lc=None
+        self.rc=None
+        self.par=None
 
-# Example usage:
-# arr = [12, 11, 13, 5, 6, 7]
-# arr = [3,2,1]
-# heap_sort(arr)
-# print("Sorted array:", arr)
+        pass
+class btree:
+    LEFT=0
+    RIGHT=1
+    def __init__(self) -> None:
+        self.root=None
+        pass
 
-# pheap=heap(heap.TMIN)
-pheap=heap(heap.TMAX)
 
-arr=[2,1,4,-5,-4 , 6, 7,9, 25,-7]
-# arr=[2,1,4,-5]
-# pheap.add_lst(arr)
-# pheap.print()
 
-# top=pheap.pop()
-# print(top)
-# pheap.print()
+    def sample(self):
+        self.root=node(10,10)
+        self.root.lc=node(6,6)
+        self.root.rc=node(14,14)
+        self.root.lc.lc=node(4,4)
+        self.root.lc.rc=node(8,8)
+        self.root.rc.lc=node(12,12)
 
-# pheap.add(top)
-# pheap.print()
+    def build_par(self,par,cur):
+        if cur == None:
+            pass
+        else:
+            cur.par=par
+            self.build_par(cur,cur.lc)
+            self.build_par(cur,cur.rc)
+        return
 
-pheap.heapify(arr)
-pheap.print()
+    def delete_node(self,cur):
+        # adjust pointers from parent
+        par=cur.par
+        if par ==None:
+            self.root=None
+        elif par.lc == cur:
+            par.lc = None
+        else:
+            par.rc = None
+
+        del  cur
+        return
+
+    def tprint(self):
+        cur=self.root
+        lev=0
+        print("===tree")
+        self.tprint2(cur, lev)
+
+    def tprint2(self,cur,lev):
+        if cur == None:
+            return
+        parv=None
+        if cur.par != None:
+            parv=cur.par.v
+        print("-"*lev,cur.v)
+        # print("-"*lev,cur.v, "parv",parv)
+        self.tprint2(cur.lc,lev+3)
+        self.tprint2(cur.rc,lev+3)
+
+
+    def search_key(self,cur,k):
+        if cur == None:
+            res=None
+        elif cur.k==k:
+            res=cur
+        elif cur.k >k:
+            res=self.search_key(cur.lc,k)
+        else:
+            res=self.search_key(cur.rc,k)
+
+        return res
+
+    def delete_key(self,k):
+        rc=0
+        cur=self.search_key(self.root,k)
+        if cur ==None:
+            rc = 1
+        else:
+            if cur.lc != None:
+                max_ltr=self.find_max(cur.lc)
+                # copy from it to cur
+                cur.k=max_ltr.k
+                cur.v=max_ltr.v
+                self.delete_node(max_ltr)
+            elif cur.rc != None:
+                min_rtr=self.find_min(cur.rc)
+                cur.k=min_rtr.k
+                cur.v=min_rtr.v
+                self.delete_node(min_rtr)
+            else:
+                self.delete_node(cur)
+
+            pass
+
+        return rc
+
+    def find_max(self, cur):
+        if cur.rc !=None:
+            res=self.find_max(cur.rc)
+        else:
+            res = cur
+        return res
+
+    def find_min(self, cur):
+        if cur.lc !=None:
+            res=self.find_min(cur.lc)
+        else:
+            res = cur
+        return res
+
+class heap_test:
+    def __init__(self) -> None:
+        pass
+    def run(self):
+        # pheap=heap(heap.TMIN)
+        pheap=heap(heap.TMAX)
+
+        arr=[2,1,4,-5,-4 , 6, 7,9, 25,-7]
+        # arr=[2,1,4,-5]
+        # pheap.add_lst(arr)
+        # pheap.print()
+
+        # top=pheap.pop()
+        # print(top)
+        # pheap.print()
+
+        # pheap.add(top)
+        # pheap.print()
+
+        pheap.heapify(arr)
+        pheap.print()
+        return
+
+
+class btree_test:
+    def __init__(self) -> None:
+
+        pass
+
+    def run(self):
+        pbtree=btree()
+        pbtree.sample()
+        pbtree.build_par(None,pbtree.root)
+        pbtree.tprint()
+        # search
+        klist=[99,6,12]
+        for k in klist:
+            cur=pbtree.search_key(pbtree.root,k)
+            res_v=None
+            if cur != None:
+                res_v=cur.v
+            print("search for ", k, "res_v" , res_v)
+
+        #  find min/max  in subtree
+        k_list=[10, 6,4,14]
+        for k  in k_list:
+            cur=pbtree.search_key(pbtree.root,k)
+            res_max=pbtree.find_max(cur)
+            res_min=pbtree.find_min(cur)
+            print("for cur", cur.v, "min",  res_min.v, "max " , res_max.v)
+
+        # delete leaf  node
+        # k_list=[4]
+        # for k  in k_list:
+        #     cur=pbtree.search_key(pbtree.root,k)
+        #     pbtree.delete_node(cur)
+        #     pbtree.tprint()
+
+        # delete key
+        k_list=[14,10,6,8,12,4]
+        print("================test delete by keys",k_list)
+        pbtree.tprint()
+        for k  in k_list:
+            pbtree.sample()
+            # pbtree.delete_key(k)
+            pbtree.tprint()
+
+        pass
+
+# pheap_test=heap_test()
+# pheap_test.run()
+
+pbtree_test=btree_test()
+pbtree_test.run()

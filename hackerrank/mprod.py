@@ -5,31 +5,29 @@ a=[
 
     ]
 
-b=[0.40,0.80,1.30]
+b=[1.80,1.2,0.9]
+c=[0,0,0]
 
-# prd=0
+prd=0
 
-# for j,row in enumerate(a):
-#     for x in row:
-#         amt=x*b[j]
-#         if j >0 :
-#             continue
-#         prd+=amt
-#         print(x, b[j], amt)
-#         print(prd)
+for j,row in enumerate(a):
+    for i,x in enumerate(row) :
+        amt=x*b[j]
+        print(x, b[j], amt)
+        c[j]+=amt
 
-# print(prd)
+print(c)
 
 
-import numpy as np
+# import numpy as np
 
-# Given matrix
-A = np.array([[3,5,0],
-              [0,-3,-2],
-              [1,3,1]])
+# # Given matrix
+# A = np.array([[3,5,0],
+#               [0,-3,-2],
+#               [1,3,1]])
 
-# Calculate the inverse
-A_inv = np.linalg.inv(A)
+# # Calculate the inverse
+# A_inv = np.linalg.inv(A)
 
-print("Inverse of the matrix:")
-print(A_inv)
+# print("Inverse of the matrix:")
+# print(A_inv)
