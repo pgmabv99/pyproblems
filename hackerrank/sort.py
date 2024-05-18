@@ -376,7 +376,7 @@ class btree_test:
         #     gap=pbtree.find_gap(pbtree.root, None,k)
         #     print("gap found",k,gap.k)
 
-        k_list=[7,3,11,13,5]
+        k_list=[7,3,11,13,20, 18,21,22,23, 19]
         pbtree=btree()
         print("================test insert by keys",k_list)
         for k in k_list:
