@@ -181,6 +181,7 @@ class btree:
         self.root.lc.lc=node(4,4)
         self.root.lc.rc=node(8,8)
         self.root.rc.lc=node(12,12)
+        self.build_par(None, self.root)
 
     def build_par(self,par,cur):
         if cur == None:
@@ -201,25 +202,25 @@ class btree:
         else:
             par.rc = None
 
-        del  cur
+        # del  cur
         return
 
     def tprint(self):
         cur=self.root
         lev=0
         print("===tree")
-        self.tprint2(cur, lev)
+        self.tprint2(cur, lev,"X")
 
-    def tprint2(self,cur,lev):
+    def tprint2(self,cur,lev,side):
         if cur == None:
             return
         parv=None
         if cur.par != None:
             parv=cur.par.v
-        print("-"*lev,cur.v)
+        print("-"*lev,side,cur.v)
         # print("-"*lev,cur.v, "parv",parv)
-        self.tprint2(cur.lc,lev+3)
-        self.tprint2(cur.rc,lev+3)
+        self.tprint2(cur.lc,lev+3,"L")
+        self.tprint2(cur.rc,lev+3,"R")
 
 
     def search_key(self,cur,k):
@@ -255,8 +256,24 @@ class btree:
                 self.delete_node(cur)
 
             pass
-
         return rc
+
+    def insert_key(self,k):
+        v=k
+        cur=node(k,v)
+        if self.root==None:
+            self.root=cur
+            cur.par=self.root
+        else:
+            gap=self.find_gap(self.root,None,k)
+            if k <= gap.k:
+                gap.lc=cur
+            else:
+                gap.rc=cur
+            pass
+
+        return
+
 
     def find_max(self, cur):
         if cur.rc !=None:
@@ -271,6 +288,21 @@ class btree:
         else:
             res = cur
         return res
+
+    def find_gap(self,cur,par,k):
+        if cur ==None:
+            res= par
+        else:
+            res=None
+            if k<=cur.k:
+                res= self.find_gap(cur.lc, cur, k)
+            if res == None:
+                res= self.find_gap(cur.rc, cur, k)
+
+
+        return res
+
+
 
 class heap_test:
     def __init__(self) -> None:
@@ -304,7 +336,6 @@ class btree_test:
     def run(self):
         pbtree=btree()
         pbtree.sample()
-        pbtree.build_par(None,pbtree.root)
         pbtree.tprint()
         # search
         klist=[99,6,12]
@@ -331,12 +362,25 @@ class btree_test:
         #     pbtree.tprint()
 
         # delete key
-        k_list=[14,10,6,8,12,4]
-        print("================test delete by keys",k_list)
-        pbtree.tprint()
-        for k  in k_list:
-            pbtree.sample()
-            # pbtree.delete_key(k)
+        # k_list=[14,10,6,8,12,4]
+        # print("================test delete by keys",k_list)
+        # pbtree.tprint()
+        # for k  in k_list:
+        #     pbtree.sample()
+        #     print("delete key", k)
+        #     pbtree.delete_key(k)
+        #     pbtree.tprint()
+
+        # k_list=[7,3,11,13]
+        # for k in k_list:
+        #     gap=pbtree.find_gap(pbtree.root, None,k)
+        #     print("gap found",k,gap.k)
+
+        k_list=[7,3,11,13,5]
+        pbtree=btree()
+        print("================test insert by keys",k_list)
+        for k in k_list:
+            gap=pbtree.insert_key( k)
             pbtree.tprint()
 
         pass
