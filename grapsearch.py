@@ -22,14 +22,17 @@ def search2(start,key):
         node=stk.pop(0)
         used.append(node)
         print(node) 
-        bfs_order.append(node)   
+        bfs_order.append(node) 
+        print("bfs_order", bfs_order)  
         if node == key:
             print("found",used)
             break
         nbs=graph[node]
-        for nb in reversed(nbs):
+        # for nb in reversed(nbs):
+        for nb in nbs:
             if nb not in used:
-                stk.insert(0,nb)
+                # stk.insert(0,nb)
+                stk.append(nb)
                 
     print("bfs_order!!!!!!!!!!!!!!!!!!!!!",bfs_order)
     return bfs_order
@@ -55,6 +58,6 @@ def visualize_bfs(graph, bfs_order):
     
     
     
-bfs_order=search2("A","E")
+bfs_order=search2("A","C")
 print("BFS Order:", bfs_order)
 visualize_bfs(graph, bfs_order)
