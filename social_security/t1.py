@@ -5,15 +5,16 @@ import mplcursors
 
 death = 90
 start = 62
-ret1 = 65
-ret2 = 70
-ss = {65:3289, 
+ret1 = 64
+ret2 = 65
+ss = {64:3174,
+     65:3289, 
       66:3552, 
       67:3817, 
       68:4083, 
       69:4401, 
       70:4772}
-interest = 1.05
+interest = 1.06
 agelist = [i for i in range(start, death)]
 
 # Compute payment timeline and investment growth
