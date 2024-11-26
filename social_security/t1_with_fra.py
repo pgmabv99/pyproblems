@@ -59,8 +59,8 @@ plt.figure(figsize=(10, 5))
 
 # First chart
 plt.subplot(1, 2, 1)
-plt.plot(agelist, pay1, label=f'Retirement at {retirement_age1} (Monthly = {ss[retirement_age1]})', color="red")
-plt.plot(agelist, pay2, label=f'Retirement at {retirement_age2} (Monthly = {ss[retirement_age2]})', color="blue")
+plt.plot(agelist, pay1, label=f'Payment from  {retirement_age1} (Monthly = {ss[retirement_age1]})', color="red")
+plt.plot(agelist, pay2, label=f'Payment from  {retirement_age2} (Monthly = {ss[retirement_age2]})', color="blue")
 plt.plot(agelist, inv1, label=f'Investment Growth from {retirement_age1}', color="red", linewidth=2.5)
 plt.plot(agelist, inv2, label=f'Investment Growth from {retirement_age2}', color="blue", linewidth=2.5)
 
