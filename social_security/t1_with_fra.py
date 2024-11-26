@@ -8,6 +8,7 @@ start62 = 62
 retirement_age1 = 65
 retirement_age2 = 67
 fra_age = 67
+fra_age = 65
 max_before_fra = 1860
 ss = {64:3174,
      65:3289, 
