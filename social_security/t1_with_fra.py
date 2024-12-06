@@ -1,3 +1,6 @@
+# Compare  Social security payments with/without investment for 2 ages
+# fra_age is set at 67. If no work income planned (and therefore noreduction) set it to your current age
+# feel free to change the death= :) 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
